@@ -9,7 +9,7 @@ import { OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   ngOnInit(){
-    this.GitSearchService.gitSearch('java').then((response)=>{
+  /*this.GitSearchService.gitSearch('java').then((response)=>{
       alert('Total repositories found: '+response.total_count);
     },(error) => {
       alert('Error: '+ error.statusText);
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
       alert('Total Users found: '+response.total_count);
     },(error) => {
       alert('Error: '+ error.statusText);
-    })
+    })*/
   }
   constructor(private GitSearchService: GitSearchService){
 
