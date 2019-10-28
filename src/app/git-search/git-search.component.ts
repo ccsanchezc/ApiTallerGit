@@ -25,7 +25,8 @@ gitSearch =()=>{
     this.displayQuery = this.searchQuery;
     //alert('Total repositories found: '+response.total_count);
   },(error) => {
-    alert('Error: '+ error.statusText);
+   // alert('Error: '+ error.statusText);
+   this.displayQuery= "error";
   })
 
 }
