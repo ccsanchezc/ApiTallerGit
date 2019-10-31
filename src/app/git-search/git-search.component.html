@@ -1,7 +1,8 @@
 <h3>{{searchQuery}}</h3>
+<h3>{{pagina}}- pagina</h3>
 <input name="query" placeholder="Enter search" [(ngModel)]="searchQuery"/>
 <button (click) = "gitSearch()">Submit</button>
-<div *ngIf="searchResults != null || displayQuery == 'error'; else elseBlock">
+<div *ngIf="displayQuery != 'error'; else elseBlock">
 <h3 class = "total"> Total-Results : {{searchResults.total_count}}</h3>
 <ul class = "list">
     <li class ="list_item" *ngFor="let result of searchResults.items">

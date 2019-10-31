@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GitSearchService } from '../git-search.service';
 import { GitSearch } from '../git-search';
 
+import { ActivatedRoute, ParamMap, Router } from '@angular/router'
+
 @Component({
   selector: 'app-git-search',
   templateUrl: './git-search.component.html',
@@ -11,24 +13,40 @@ export class GitSearchComponent implements OnInit {
   searchResults: GitSearch;
   searchQuery: string;
   displayQuery: string;
-  constructor(private GitSearchService: GitSearchService) { }
+  pagina: string;
+  title: string;
+  constructor(private GitSearchService: GitSearchService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
-  ngOnInit() {
-   this.searchQuery = 'java'
-   this.displayQuery = this.searchQuery ;
-   this.gitSearch();
-  }
+    ngOnInit() {
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        this.searchQuery = params.get('query');
+        this.displayQuery = params.get('query'); 
+        this.pagina = params.get('pagina');    
+        this.gitSearch();
+       
+      })
+      this.route.data.subscribe((result) => {
+        this.title = result.title
+      });
+    }
 
 gitSearch =()=>{
-  this.GitSearchService.gitSearch(this.searchQuery).then((response)=>{
+  this.GitSearchService.gitSearch(this.searchQuery,this.pagina).then((response)=>{
     this.searchResults = response;
     this.displayQuery = this.searchQuery;
     //alert('Total repositories found: '+response.total_count);
   },(error) => {
    // alert('Error: '+ error.statusText);
+   
    this.displayQuery= "error";
   })
 
+}
+sendQuery = () => {
+  this.searchResults = null;
+  this.router.navigate(['/search/' + this.searchQuery])
 }
 
 }
